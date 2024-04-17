@@ -65,6 +65,7 @@ struct movie *processFile(char *filePath)
     size_t len = 0;
     size_t nread;
     char *token;
+    int listLen;
 
     // The head of the linked list
     struct movie *head = NULL;
@@ -76,6 +77,7 @@ struct movie *processFile(char *filePath)
     {
         // Get a new movie node corresponding to the current line
         struct movie *newNode = createMovie(currLine);
+        listLen++;
 
         // Is this the first node in the linked list?
         if (head == NULL)
@@ -93,9 +95,29 @@ struct movie *processFile(char *filePath)
             tail = newNode;
         }
     }
+    
+    printf("Processed file %s and parsed data from %d movies \n\n", filePath, listLen);
     free(currLine);
     fclose(movieFile);
     return head;
+}
+
+int promptUser(void){
+
+    int response;
+    do {
+        printf("1. Show movies released in the specified year \n"
+               "2. Show highest rated movie for each year \n"
+               "3. Show the title and year of release of all movies in a specific language \n"
+               "4. Exit from the program \n\n");
+
+        printf("Enter a number from 1 to 4:");
+        scanf("%i", &response);
+        if (response > 4 || response < 1){
+            fprintf(stderr, "You entered an incorrect choice. Try again.\n\n");
+        }
+    } while (response > 4 || response <1);
+    return response;
 }
 
 /*
@@ -121,7 +143,7 @@ void printMovieList(struct movie *list)
 
 /*
 *   Process the file provided as an argument to the program to
-*   create a linked list of movie structs and print out the list.
+*   create a linked list of movie structs
 *   Compile the program as follows:
 *       gcc --std=gnu99 -o movies main.c
 */
@@ -135,6 +157,17 @@ int main(int argc, char *argv[])
         return EXIT_FAILURE;
     }
     struct movie *list = processFile(argv[1]);
-    printMovieList(list);
+
+    int choice = promptUser();
+    //switch(choice){
+    //case 1:
+
+    //case 2:
+
+    //case 3:
+
+    //case 4: 
+    //}
+
     return EXIT_SUCCESS;
 }
