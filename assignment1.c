@@ -1,6 +1,3 @@
-// If you are not compiling with the gcc option --std=gnu99, then
-// uncomment the following line or you might get a compiler warning
-//#define _GNU_SOURCE
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -79,18 +76,16 @@ struct movie *processFile(char *filePath)
         struct movie *newNode = createMovie(currLine);
         listLen++;
 
-        // Is this the first node in the linked list?
+        //check if this is the first node
         if (head == NULL)
         {
-            // This is the first node in the linked link
-            // Set the head and the tail to this node
+            //if this is the first, set the head and the tail to this node
             head = newNode;
             tail = newNode;
         }
         else
         {
-            // This is not the first node.
-            // Add this node to the list and advance the tail
+            //if this is not the first, add this node to the list and advance the tail
             tail->next = newNode;
             tail = newNode;
         }
@@ -102,21 +97,26 @@ struct movie *processFile(char *filePath)
     return head;
 }
 
+/*
+Present the user with the menu of choices, retrieve and validate their input
+*/
 int promptUser(void){
 
     int response;
+    //loop runs at least once, then repeats if the user enters an invalid input
     do {
         printf("1. Show movies released in the specified year \n"
                "2. Show highest rated movie for each year \n"
                "3. Show the title and year of release of all movies in a specific language \n"
                "4. Exit from the program \n\n");
 
-        printf("Enter a number from 1 to 4:");
+        printf("Enter a number from 1 to 4: ");
         scanf("%i", &response);
         if (response > 4 || response < 1){
             fprintf(stderr, "You entered an incorrect choice. Try again.\n\n");
         }
     } while (response > 4 || response <1);
+
     return response;
 }
 
@@ -142,32 +142,33 @@ void printMovieList(struct movie *list)
 }
 
 /*
-*   Process the file provided as an argument to the program to
-*   create a linked list of movie structs
-*   Compile the program as follows:
-*       gcc --std=gnu99 -o movies main.c
+Process movies data into a linked list of all movies
+Ask user to choose from the menu of options
+Perform selected function and repeat menu unless exit was chosen
 */
 
 int main(int argc, char *argv[])
 {
-    if (argc < 2)
-    {
-        printf("You must provide the name of the file to process\n");
-        printf("Example usage: ./movies movies_sample.csv\n");
-        return EXIT_FAILURE;
-    }
+    //process data into a linked list of all movies
     struct movie *list = processFile(argv[1]);
 
-    int choice = promptUser();
-    //switch(choice){
-    //case 1:
-
-    //case 2:
-
-    //case 3:
-
-    //case 4: 
-    //}
-
+    int choice = 0;
+    //repeat the menu and resulting functions until the user inputs 4
+    while (choice != 4){
+        choice = promptUser();
+        switch(choice){
+        case 1:
+        //yet to be implemented
+        break;
+        case 2:
+        //yet to be implemented
+        break;
+        case 3:
+        //yet to be implemented
+        break;
+        case 4:
+        break;
+        }
+    }
     return EXIT_SUCCESS;
 }
