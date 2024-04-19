@@ -123,22 +123,87 @@ int promptUser(void){
 /*
 * Print data for the given movie
 */
-void printMovie(struct movie* aMovie){
-  printf("%s, %s %s, %s\n", aMovie->title,
-               aMovie->year,
-               aMovie->languages,
-               aMovie->rating);
+void printMovie(struct movie* aMovie, int option){
+    switch(option){
+    case 1:
+        printf("%s\n", aMovie->title);
+    break;
+    case 2:
+        printf("%s, %s %s\n", aMovie->year,
+                aMovie->rating,
+                aMovie->title);
+    break;
+    case 3:
+        printf("%s, %s\n", aMovie->year,
+                aMovie->title);
+    break;      
+    }
 }
 /*
-* Print the linked list of movies
-*/
-void printMovieList(struct movie *list)
+Take an input for the year for which movies should be displayed
+Loop through linked list and print each movie from the given year
+*/  
+void displayYear(struct movie *list)
 {
+    // variable used to track whether any movies can be found for the given year
+    int moviesCheck = 0;
+    printf("Enter the year for which you want to see movies: ");
+    char input[4];
+    scanf("%s", &input);
+    const char *inputYear = input;
     while (list != NULL)
     {
-        printMovie(list);
+        if (0 == strcmp(list->year, inputYear)){
+            printMovie(list, 1);
+            moviesCheck = 1;
+        }
         list = list->next;
     }
+    if (moviesCheck == 0){
+        printf("No data about movies released in the year %s.\n\n", input);
+    }
+    printf("\n");
+}
+
+/*
+void displayHighestRated(struct movie *list)
+{
+    //loop through
+    // if the year is not in the array, save the item  
+
+    while (list != NULL)
+    {
+        if (){
+            printMovie(list, 2);
+        }
+        list = list->next;
+    }
+}
+*/
+
+/*
+Take an input for the language for which movies should be displayed
+Loop through linked list and print each movie made in the given language
+*/
+void displayLanguage(struct movie *list)
+{
+    char langInput[20];
+    int movieFound = 0;
+    printf("Enter the language for which you want to see movies: ");
+    scanf("%s", &langInput);
+    const char *langCheck = langInput;
+    while (list != NULL)
+    {
+        if (strstr(list->languages, langCheck) != NULL){
+            printMovie(list, 3);
+            movieFound = 1;
+        }
+        list = list->next;
+    }
+    if (movieFound = 0){
+        printf("No data released about movies released in %s ", langInput);
+    }
+    printf("\n");
 }
 
 /*
@@ -158,13 +223,13 @@ int main(int argc, char *argv[])
         choice = promptUser();
         switch(choice){
         case 1:
-        //yet to be implemented
+        displayYear(list);
         break;
         case 2:
-        //yet to be implemented
+        //displayHighestRates(list);
         break;
         case 3:
-        //yet to be implemented
+        displayLanguage(list);
         break;
         case 4:
         break;
