@@ -160,26 +160,10 @@ void displayYear(struct movie *list)
         list = list->next;
     }
     if (moviesCheck == 0){
-        printf("No data about movies released in the year %s.\n\n", input);
+        printf("No data about movies released in the year %s.\n", input);
     }
     printf("\n");
 }
-
-/*
-void displayHighestRated(struct movie *list)
-{
-    //loop through
-    // if the year is not in the array, save the item  
-
-    while (list != NULL)
-    {
-        if (){
-            printMovie(list, 2);
-        }
-        list = list->next;
-    }
-}
-*/
 
 /*
 Take an input for the language for which movies should be displayed
@@ -226,7 +210,8 @@ int main(int argc, char *argv[])
         displayYear(list);
         break;
         case 2:
-        //displayHighestRates(list);
+        //not implemented; didn't get to this in time but figured it'd be better to submit as is
+        printf("option not implemented \n");
         break;
         case 3:
         displayLanguage(list);
